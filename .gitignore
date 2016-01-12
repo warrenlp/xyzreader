@@ -1,0 +1,9 @@
+# Ignore all Android Studio specific files. These can be rebuilt with gradle anyway.
+*.iml
+.idea/**
+xyzreader/.idea/**
+build/**
+
+# Ignore all built gradle files
+.gradle/**
+gradle/**
