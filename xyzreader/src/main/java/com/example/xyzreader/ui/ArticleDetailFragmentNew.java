@@ -161,6 +161,7 @@ public class ArticleDetailFragmentNew extends Fragment implements
 //        bylineView.setMovementMethod(new LinkMovementMethod());
         CollapsingToolbarLayout collapsingToolbarLayout =
                 ((CollapsingToolbarLayout) mRootView.findViewById(R.id.details_collapsing_toolbar_layout));
+        android.support.v7.widget.Toolbar toolBar = (android.support.v7.widget.Toolbar) mRootView.findViewById(R.id.details_toolbar);
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
         bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
@@ -178,7 +179,8 @@ public class ArticleDetailFragmentNew extends Fragment implements
 //                            + mCursor.getString(ArticleLoader.Query.AUTHOR)
 //                            + "</font>"));
 //            collapsingToolbarLayout.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
-            collapsingToolbarLayout.setTitle("Title");
+            collapsingToolbarLayout.setTitle("Some really, really long Title");
+            toolBar.setSubtitle("This is a subtitle");
 //            collapsingToolbarLayout.setSubtitle(Html.fromHtml(
 //                    DateUtils.getRelativeTimeSpanString(
 //                            mCursor.getLong(ArticleLoader.Query.PUBLISHED_DATE),

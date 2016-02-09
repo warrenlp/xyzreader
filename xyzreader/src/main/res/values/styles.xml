@@ -24,7 +24,12 @@
     </style>
 
     <style name="Theme.Bacon.Detail">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="TransparentText" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#00666666</item>
     </style>
 
 </resources>
