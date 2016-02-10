@@ -48,7 +48,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mToolbar.setLogo(R.drawable.logo);
 
-        final View toolbarContainerView = findViewById(R.id.toolbar_container);
+//        final View toolbarContainerView = findViewById(R.id.toolbar_container);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
