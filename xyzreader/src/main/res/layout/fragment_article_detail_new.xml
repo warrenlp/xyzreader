@@ -80,7 +80,6 @@
                 android:id="@+id/details_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:navigationIcon="@drawable/ic_arrow_back"
                 app:layout_collapseMode="pin"
                 >
             </android.support.v7.widget.Toolbar>
