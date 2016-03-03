@@ -42,11 +42,10 @@ public class ArticleListActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_list);
 
-        ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout)).setTitle("Screen Title");
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//        ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout)).setTitle("");
+        mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        mToolbar.setLogo(R.drawable.logo);
 
 //        final View toolbarContainerView = findViewById(R.id.toolbar_container);
 
