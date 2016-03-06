@@ -1,21 +1,19 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main.coordinator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true" >
+    android:layout_height="match_parent" >
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="192dp"
-        android:background="?colorPrimary"
-        android:fitsSystemWindows="true" >
+        android:layout_height="140dp"
+        android:background="?colorPrimary" >
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
             app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
             app:contentScrim="?attr/colorPrimary"
@@ -32,30 +30,12 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/main.toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_anchor="@id/main.framelayout"
-        app:title=""
-        />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@drawable/logo"
-        app:layout_behavior="com.example.xyzreader.ui.TitleImageViewBehavior"
-        />
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-         >
+        >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -69,5 +49,25 @@
             />
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main.toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/theme_primary"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:layout_anchor="@id/main.framelayout"
+        app:layout_anchorGravity="center_vertical"
+        app:title=""
+        />
+
+    <ImageView
+        android:id="@+id/titleImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:background="@null"
+        app:layout_behavior="com.example.xyzreader.ui.TitleImageViewBehavior"
+        />
 
 </android.support.design.widget.CoordinatorLayout>

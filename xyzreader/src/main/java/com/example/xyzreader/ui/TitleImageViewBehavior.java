@@ -4,7 +4,9 @@ import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.xyzreader.R;
@@ -15,8 +17,8 @@ import com.example.xyzreader.R;
 @SuppressWarnings("unused")
 public class TitleImageViewBehavior extends CoordinatorLayout.Behavior<ImageView> {
 
-    private final static float MIN_TITLE_PERCENTAGE_SIZE = 0.3f;
-    private final static int EXTRA_FINAL_TITLE_PADDING = 80;
+//    private final static float MIN_TITLE_PERCENTAGE_SIZE = 0.3f;
+//    private final static int EXTRA_FINAL_TITLE_PADDING = 80;
 
     private final static String TAG = "behavior";
     private final Context mContext;
@@ -28,22 +30,22 @@ public class TitleImageViewBehavior extends CoordinatorLayout.Behavior<ImageView
     private int mStartYPosition;
     private float mStartToolbarPosition;
     private int mFinalYPosition;
+    private int finalWidth;
     private int finalHeight;
     private int mStartHeight;
+    private int mStartWidth;
     private int mFinalXPosition;
 
     public TitleImageViewBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
         init();
-
-        mFinalTitlePadding = context.getResources().getDimension(R.dimen.spacing_normal);
     }
 
     private void init() { bindDimensions(); }
 
     private void bindDimensions() {
-        mImageMaxSize = mContext.getResources().getDimension(R.dimen.image_width);
+        mFinalTitlePadding = mContext.getResources().getDimension(R.dimen.spacing_normal);
     }
 
     @Override
@@ -55,59 +57,70 @@ public class TitleImageViewBehavior extends CoordinatorLayout.Behavior<ImageView
     public boolean onDependentViewChanged(CoordinatorLayout parent, ImageView child, View dependency) {
         maybeInitProperties(child, dependency);
 
-        final int maxScrollDistance = (int) (mStartToolbarPosition - getStatusBarHeight());
+        final float maxScrollDistance = mStartToolbarPosition;
         float expandedPercentageFactor = dependency.getY() / maxScrollDistance;
 
         float distanceYToSubtract = ((mStartYPosition - mFinalYPosition)
-            * (1f - expandedPercentageFactor)) + (child.getHeight() / 2);
+            * (1f - expandedPercentageFactor));
 
         float distanceXToSubtract = ((mStartXPosition - mFinalXPosition)
-                * (1f - expandedPercentageFactor)) + (child.getWidth() / 2);
+                * (1f - expandedPercentageFactor));
 
         float heightToSubstract = ((mStartHeight - finalHeight) * (1f - expandedPercentageFactor));
+        float widthToSubstract = ((mStartWidth - finalWidth) * (1f - expandedPercentageFactor));
+
+        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
+        lp.width = (int) (mStartWidth - widthToSubstract);
+        lp.height = (int) (mStartHeight - heightToSubstract);
+        child.setLayoutParams(lp);
 
         child.setY(mStartYPosition - distanceYToSubtract);
         child.setX(mStartXPosition - distanceXToSubtract);
-
-        int proportionalImageSize = (int) (mImageMaxSize * (expandedPercentageFactor));
-
-        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
-        lp.width = (int) (mStartHeight - heightToSubstract);
-        lp.height = (int) (mStartHeight - heightToSubstract);
-        child.setLayoutParams(lp);
 
         return true;
     }
 
     private void maybeInitProperties(ImageView child, View dependency) {
-        if (mStartYPosition == 0) {
-            float y = dependency.getY();
-            mStartYPosition = (int) (y);
+        int rawWidth = child.getDrawable().getIntrinsicWidth();
+        int rawHeight = child.getDrawable().getIntrinsicHeight();
+        float aspectRatio = (float)rawWidth/(float)rawHeight;
+
+        if (mImageMaxSize == 0) {
+            int dw = dependency.getWidth();
+            mImageMaxSize = dependency.getWidth() - (2 * mFinalTitlePadding);
         }
 
-        if (mFinalYPosition == 0) {
-            mFinalYPosition = (dependency.getHeight() / 2);
-        }
-
-        if (mStartHeight == 0) {
-            mStartHeight = child.getHeight();
-        }
-
-        if (finalHeight == 0) {
-            finalHeight = mContext.getResources().getDimensionPixelOffset(R.dimen.image_final_width);
+        if (mStartWidth == 0) {
+            mStartWidth = (int) mImageMaxSize;
         }
 
         if (mStartXPosition == 0) {
-            mStartXPosition = (int) (child.getX() + (child.getWidth() / 2));
+            mStartXPosition = (int) (dependency.getX() + mFinalTitlePadding);
+        }
+
+        if (mStartHeight == 0) {
+            mStartHeight = (int)((float) mStartWidth / aspectRatio);
+        }
+
+        if (mStartYPosition == 0) {
+            int deltaHeight = dependency.getHeight() - mStartHeight;
+            mStartYPosition = (int) dependency.getY() + deltaHeight;
+        }
+
+        if (finalHeight == 0) {
+            finalHeight = dependency.getHeight();
+        }
+
+        if (finalWidth == 0) {
+            finalWidth = (int)(finalHeight * aspectRatio);
         }
 
         if (mFinalXPosition == 0) {
-            mFinalXPosition = mContext.getResources().getDimensionPixelOffset(R.dimen.abc_action_bar_content_inset_material) +
-                    (finalHeight / 2);
+            mFinalXPosition = mContext.getResources().getDimensionPixelOffset(R.dimen.abc_action_bar_content_inset_material); // +
         }
 
         if (mStartToolbarPosition == 0) {
-            mStartToolbarPosition = dependency.getY() + (dependency.getHeight() / 2);
+            mStartToolbarPosition = dependency.getY(); // - (dependency.getHeight() / 2);
         }
     }
 
