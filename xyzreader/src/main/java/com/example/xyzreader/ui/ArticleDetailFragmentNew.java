@@ -52,7 +52,7 @@ public class ArticleDetailFragmentNew extends Fragment implements
 
 //    private int mTopInset;
 //    private View mPhotoContainerView;
-//    private ImageView mPhotoView;
+    private ImageView mPhotoView;
 //    private int mScrollY;
     private boolean mIsCard = false;
 //    private int mStatusBarFullOpacityBottom;
@@ -118,6 +118,8 @@ public class ArticleDetailFragmentNew extends Fragment implements
             }
         });
 
+        mPhotoView = (ImageView) mRootView.findViewById(R.id.detail_image);
+
         bindViews();
         return mRootView;
     }
@@ -155,7 +157,6 @@ public class ArticleDetailFragmentNew extends Fragment implements
         if (mRootView == null) {
             return;
         }
-
 //        TextView titleView = (TextView) mRootView.findViewById(R.id.article_title);
 //        TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
 //        bylineView.setMovementMethod(new LinkMovementMethod());
@@ -198,7 +199,7 @@ public class ArticleDetailFragmentNew extends Fragment implements
                             if (bitmap != null) {
 //                                Palette p = Palette.generate(bitmap, 12);
 //                                mMutedColor = p.getDarkMutedColor(0xFF333333);
-//                                mPhotoView.setImageBitmap(imageContainer.getBitmap());
+                                mPhotoView.setImageBitmap(imageContainer.getBitmap());
 //                                mRootView.findViewById(R.id.meta_bar)
 //                                        .setBackgroundColor(mMutedColor);
 //                                updateStatusBar();

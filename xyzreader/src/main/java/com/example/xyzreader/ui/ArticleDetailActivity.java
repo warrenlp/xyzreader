@@ -160,7 +160,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         @Override
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
             super.setPrimaryItem(container, position, object);
-            ArticleDetailFragmentNew fragment = (ArticleDetailFragmentNew) object;
+//            ArticleDetailFragmentNew fragment = (ArticleDetailFragmentNew) object;
 //            if (fragment != null) {
 //                mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
 //                updateUpButtonPosition();
